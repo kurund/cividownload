@@ -1,0 +1,81 @@
+<?php
+/**
+ * Add menu item
+ *
+ * @return array
+ */
+function cividownload_menu() {
+  $items = array();
+  $items['cividownload'] = array(
+    'title' => t('CiviCRM Downloads'),
+    'page callback' => 'cividownload_download_page',
+    'access arguments' => array('access content'),
+    'type'             => MENU_SUGGESTED_ITEM,
+  );
+
+  $items['cividownload/download'] = array(
+    'title' => t('Thank you for downloading CiviCRM'),
+    'page callback' => 'cividownload_download',
+    'access arguments' => array('access content'),
+    'type'             => MENU_SUGGESTED_ITEM,
+  );
+
+  return $items;
+}
+
+function cividownload_download() {
+  // get the current stable version
+  $current_version = '4.3.7';
+
+  $content['download'] = 1;
+  // build urls for the releases
+  $content['download_urls'] = array(
+    'drupal' => array(
+      'title' => t('Drupal'),
+      'url' => "http://downloads.sourceforge.net/project/civicrm/civicrm-stable/{$current_version}/civicrm-{$current_version}-drupal.tar.gz",
+    ),
+    'wordpress' => array(
+      'title' => t('WordPress'),
+      'url' => "http://downloads.sourceforge.net/project/civicrm/civicrm-stable/{$current_version}/civicrm-{$current_version}-wordpress.zip",
+    ),
+    'joomla' => array(
+      'title' => t('Joomla'),
+      'url' => "http://downloads.sourceforge.net/project/civicrm/civicrm-stable/{$current_version}/civicrm-{$current_version}-joomla.zip",
+    ),
+  );
+
+  return theme('cividownload_custompage_template', array('content' => $content));
+}
+
+function cividownload_download_page() {
+  // get the current stable version
+  $current_version = '4.3.7';
+
+  $content['listing'] = 1;
+  // build urls for the releases
+  $content['download_urls'] = array(
+    'drupal' => array(
+      'title' => t('Drupal'),
+      'version' => $current_version,
+    ),
+    'wordpress' => array(
+      'title' => t('WordPress'),
+      'version' => $current_version,
+    ),
+    'joomla' => array(
+      'title' => t('Joomla'),
+      'version' => $current_version,
+    ),
+  );
+
+  return theme('cividownload_custompage_template', array('content' => $content));
+}
+
+function cividownload_theme($existing, $type, $theme, $path) {
+  return array(
+    'cividownload_custompage_template' => array(
+      'template' => 'cividownload',
+      'arguments' => array(),
+    ),
+  );
+}
