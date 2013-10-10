@@ -11,6 +11,13 @@
 <?php } elseif (isset($content['download'])) { ?>
 
   <div class='introduction'>
-    this is introductory text for download
   </div>
+  <div class="down-link">If the download doesn't start in a few seconds, please <a href="<?php echo $content['downloadURL'];?>" id="download-link" target="_blank">click here</a> to start download.</div>
+
+  <p>
+    <label for="amount">Donation amount: ($10 increments)</label>
+    <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+  </p>
+
+  <div id="slider"></div>
 <?php } ?>

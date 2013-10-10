@@ -24,32 +24,45 @@ function cividownload_menu() {
 }
 
 function cividownload_download() {
-  // get the current stable version
-  $current_version = '4.3.7';
+  drupal_add_library('system', 'ui.slider');
+  drupal_add_js(drupal_get_path('module', 'cividownload') .'/cividownload.js', array('weight' => 1000));
 
   $content['download'] = 1;
-  // build urls for the releases
-  $content['download_urls'] = array(
-    'drupal' => array(
-      'title' => t('Drupal'),
-      'url' => "http://downloads.sourceforge.net/project/civicrm/civicrm-stable/{$current_version}/civicrm-{$current_version}-drupal.tar.gz",
-    ),
-    'wordpress' => array(
-      'title' => t('WordPress'),
-      'url' => "http://downloads.sourceforge.net/project/civicrm/civicrm-stable/{$current_version}/civicrm-{$current_version}-wordpress.zip",
-    ),
-    'joomla' => array(
-      'title' => t('Joomla'),
-      'url' => "http://downloads.sourceforge.net/project/civicrm/civicrm-stable/{$current_version}/civicrm-{$current_version}-joomla.zip",
-    ),
-  );
 
+  // get the current stable version
+  $current_version = getCurrentVersion();
+
+  // get the argument for type of download
+  $arg_list = func_get_args();
+  $fileType = $arg_list[0];
+
+  $downloadURL = '';
+  $fileName = '';
+  switch($fileType) {
+    case 'drupal':
+      $downloadURL = "http://downloads.sourceforge.net/project/civicrm/civicrm-stable/{$current_version}/civicrm-{$current_version}-drupal.tar.gz";
+      $fileName = "civicrm-{$current_version}-drupal.tar.gz";
+      break;
+    case 'wordpress':
+      $downloadURL = "http://downloads.sourceforge.net/project/civicrm/civicrm-stable/{$current_version}/civicrm-{$current_version}-wordpress.zip";
+      $fileName = "civicrm-{$current_version}-wordpress.zip";
+      break;
+    case 'joomla':
+      $downloadURL = "http://downloads.sourceforge.net/project/civicrm/civicrm-stable/{$current_version}/civicrm-{$current_version}-joomla.zip";
+      $fileName = "civicrm-{$current_version}-joomla.zip";
+      break;
+  }
+
+  $content['downloadURL'] = $downloadURL;
+  $content['fileName'] = $fileName;
+
+  $content['getfileurl'] = url('cividownload/getfile', array('query' => array('fileName' => $fileName)));
   return theme('cividownload_custompage_template', array('content' => $content));
 }
 
 function cividownload_download_page() {
   // get the current stable version
-  $current_version = '4.3.7';
+  $current_version = getCurrentVersion();
 
   $content['listing'] = 1;
   // build urls for the releases
@@ -78,4 +91,9 @@ function cividownload_theme($existing, $type, $theme, $path) {
       'arguments' => array(),
     ),
   );
+}
+
+function getCurrentVersion() {
+  $current_version = '4.3.7';
+  return $current_version;
 }
