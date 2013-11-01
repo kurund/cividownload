@@ -13,9 +13,9 @@ function cividownload_menu() {
     'type'             => MENU_SUGGESTED_ITEM,
   );
 
-  $items['admin/settings/cividownload'] = array(
+  $items['admin/config/content/cividownload'] = array(
     'title' => 'CiviDowload module settings',
-    'description' => 'Set the CiviCRM version that is offered for download',
+    'description' => 'Set the CiviCRM version that is available for download',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('cividownload_settings'),
     'access arguments' => array('administer modules'),
