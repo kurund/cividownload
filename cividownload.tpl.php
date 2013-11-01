@@ -17,13 +17,13 @@
     <div class="crm-download-info crm-hidden">
       <div>Thanks for downloading</div>
       <div class="down-link">If you were not able to download <a
-          href="<?php echo $content['downloadURL']; ?>" id="download-link" target="_blank">click here</a> to start
+          href="<?php echo $content['downloadURL']; ?>" id="download-link" target="_blank">click here</a> to start the
         download.
       </div>
     </div>
     <div class="crm-download-content">
       <div class="crm-download-intro">
-        CiviCRM - Members Supported Open Source Software. Please consider to donate and support it's continuous growth.
+        CiviCRM - Members Supported Open Source Software. Please consider donating to support the continuous growth of the project
       </div>
       <p>
         <label for="display_amount">Donation amount: ($10 increments)</label>
