@@ -13,6 +13,15 @@ function cividownload_menu() {
     'type'             => MENU_SUGGESTED_ITEM,
   );
 
+  $items['admin/settings/cividownload'] = array(
+    'title' => 'CiviDowload module settings',
+    'description' => 'Set the CiviCRM version that is offered for download',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('cividownload_settings'),
+    'access arguments' => array('administer modules'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
   return $items;
 }
 
@@ -119,6 +128,19 @@ function cividownload_theme($existing, $type, $theme, $path) {
 }
 
 function getCurrentVersion() {
-  $current_version = '4.4.0';
-  return $current_version;
+  return variable_get('civicrm_stable_version', '4.4.0');
+}
+
+function cividownload_settings() {
+  $form = array();
+  $form['civicrm_stable_version'] = array(
+    '#type' => 'textfield',
+    '#title' => t('CiviCRM version that should be available for download'),
+    '#default_value' => variable_get('civicrm_stable_version', '4.4.0'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#description' => t("Please enter current stable version of CiviCRM, for eg: 4.4.0"),
+    '#required' => TRUE,
+  );
+  return system_settings_form($form);
 }
