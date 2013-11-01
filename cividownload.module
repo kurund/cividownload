@@ -13,17 +13,27 @@ function cividownload_menu() {
     'type'             => MENU_SUGGESTED_ITEM,
   );
 
-  $items['cividownload/download'] = array(
-    'title' => t('Thank you for downloading CiviCRM'),
-    'page callback' => 'cividownload_download',
-    'access arguments' => array('access content'),
-    'type'             => MENU_SUGGESTED_ITEM,
-  );
-
   return $items;
 }
 
-function cividownload_download() {
+function cividownload_download_page() {
+  drupal_add_css(drupal_get_path('module', 'cividownload') .'/cividownload.css', array('weight' => 1000));
+
+  // get the argument for type of download
+  $arg_list = func_get_args();
+  if (!empty($arg_list)) {
+    $fileType = $arg_list[0];
+    $content = cividownload_download($fileType);
+  }
+  else {
+    $content = cividownload_download_list();
+  }
+  return theme('cividownload_custompage_template', array('content' => $content));
+}
+
+function cividownload_download($fileType) {
+  drupal_set_title('');
+
   drupal_add_library('system', 'ui.slider');
   drupal_add_js(drupal_get_path('module', 'cividownload') .'/cividownload.js', array('weight' => 1000));
 
@@ -31,10 +41,6 @@ function cividownload_download() {
 
   // get the current stable version
   $current_version = getCurrentVersion();
-
-  // get the argument for type of download
-  $arg_list = func_get_args();
-  $fileType = $arg_list[0];
 
   $downloadURL = '';
   $fileName = '';
@@ -51,16 +57,27 @@ function cividownload_download() {
       $downloadURL = "http://downloads.sourceforge.net/project/civicrm/civicrm-stable/{$current_version}/civicrm-{$current_version}-joomla.zip";
       $fileName = "civicrm-{$current_version}-joomla.zip";
       break;
+    case 'joomla-alt':
+      $downloadURL = "http://downloads.sourceforge.net/project/civicrm/civicrm-stable/{$current_version}/civicrm-{$current_version}-joomla-alt.zip";
+      $fileName = "civicrm-{$current_version}-joomla-alt.zip";
+      break;
+    case 'drupal6':
+      $downloadURL = "http://downloads.sourceforge.net/project/civicrm/civicrm-stable/{$current_version}/civicrm-{$current_version}-drupal6.tar.gz";
+      $fileName = "civicrm-{$current_version}-drupal6.tar.gz";
+      break;
+
   }
 
   $content['downloadURL'] = $downloadURL;
   $content['fileName'] = $fileName;
 
-  $content['getfileurl'] = url('cividownload/getfile', array('query' => array('fileName' => $fileName)));
-  return theme('cividownload_custompage_template', array('content' => $content));
+  return $content;
+
 }
 
-function cividownload_download_page() {
+function cividownload_download_list() {
+  drupal_set_title('');
+
   // get the current stable version
   $current_version = getCurrentVersion();
 
@@ -79,9 +96,17 @@ function cividownload_download_page() {
       'title' => t('Joomla'),
       'version' => $current_version,
     ),
+    'joomla-alt' => array(
+      'title' => t('Joomla alt'),
+      'version' => $current_version,
+    ),
+    'drupal6' => array(
+      'title' => t('Drupal 6'),
+      'version' => $current_version,
+    ),
   );
 
-  return theme('cividownload_custompage_template', array('content' => $content));
+  return $content;
 }
 
 function cividownload_theme($existing, $type, $theme, $path) {
@@ -94,6 +119,6 @@ function cividownload_theme($existing, $type, $theme, $path) {
 }
 
 function getCurrentVersion() {
-  $current_version = '4.3.7';
+  $current_version = '4.4.0';
   return $current_version;
 }
