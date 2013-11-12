@@ -1,7 +1,7 @@
 <?php if (isset($content['listing'])) { ?>
   <div class="crm-title">Download CiviCRM</div>
   <div class='crm-support'>
-    <div class='introduction'>
+    <div class='crm-introduction'>
       The current stable version of CiviCRM is 4.4. You will need to know which host Content Management software (CMS) and which version you are using.
       CiviCRM 4.4 is compatible with Drupal version 7.x, Joomla! version 2.5.x / 3.x, and WordPress version 3.4.x. There is a separate download for Drupal
       version 6.x which is not officially supported. Click on your CMS below to begin.

@@ -31,7 +31,7 @@
 
 .crm-download-intro {
   font-size: 18px;
-  padding-bottom: 14px;
+  padding-bottom: 5px;
 }
 
 .crm-title {
@@ -46,4 +46,13 @@
 .crm-donate-option {
   font-size: 16px;
   padding-top: 15px;
+}
+
+.crm-introduction {
+  padding-bottom: 14px;
+}
+
+.crm-download-content .ui-widget-content {
+  border: 1px solid #AAAAAA;
+  color: #3E3E3E;
 }
