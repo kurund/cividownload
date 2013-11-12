@@ -1,7 +1,7 @@
 (function ($) {
   $(function () {
     $("#slider").slider({
-      value: 10,
+      value: 50,
       min: 10,
       max: 200,
       step: 10,
