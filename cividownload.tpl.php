@@ -1,13 +1,15 @@
 <?php if (isset($content['listing'])) { ?>
-  <div class="crm-title">CiviCRM Downloads</div>
+  <div class="crm-title">Download CiviCRM</div>
   <div class='crm-support'>
     <div class='introduction'>
-      Below is the list of available downloads:
+      The current stable version of CiviCRM is 4.4. You will need to know which host Content Management software (CMS) and which version you are using.
+      CiviCRM 4.4 is compatible with Drupal version 7.x, Joomla! version 2.5.x / 3.x, and WordPress version 3.4.x. There is a separate download for Drupal
+      version 6.x which is not officially supported. Click on your CMS below to begin.
     </div>
 
     <ul name="download-links">
       <?php foreach ($content['download_urls'] as $key => $values) { ?>
-        <li><a href="<?php echo url('cividownload/' .$key); ?>"><?php echo $values['title']; ?></a></li>
+        <li><a href="<?php echo url('cividownload/' .$key); ?>"><?php echo 'CiviCRM for ' . $values['title']; ?></a></li>
       <?php } ?>
     </ul>
   </div>
@@ -23,17 +25,16 @@
     </div>
     <div class="crm-download-content">
       <div class="crm-download-intro">
-        CiviCRM - Members Supported Open Source Software. Please consider donating to support the continuous growth of the project
+        CiviCRM is Member-supported Open Source Software. Please consider contributing support ongoing improvements to the project.
       </div>
       <p>
-        <label for="display_amount">Donation amount: ($10 increments)</label>
+        <label for="display_amount">Contribution Amount</label>
         <input type="text" id="display_amount" class="crm-amount" readonly/>
+        <div>(move slider to change amount)</div>
       </p>
-
       <div id="slider"></div>
-
       <div class="crm-donate-option">
-        <input type="checkbox" class="" id="is_donate" value="1"> No, I don't want to donate and support the project.
+        <input type="checkbox" class="" id="is_donate" value="1"> No, I don't want to support the project with a contribution at this time.
       </div>
       <div class="crm-buttons">
       <span class="donate-download">
@@ -45,7 +46,7 @@
           <input type="hidden" name="currency_code" value="USD">
           <input type="hidden" name="no_note" value="0">
           <!--<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">-->
-          <input type="submit" class="crm-input" name="download-donate" value="Download & Donate">
+          <input type="submit" class="crm-input" name="download-donate" value="Download & Contribute">
         </form>
         <!--<input type="submit" class="crm-input" name="download-donate" value="Download & Donate">-->
       </span>
