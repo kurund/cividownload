@@ -14,30 +14,23 @@
     </ul>
   </div>
 <?php } elseif (isset($content['download'])) { ?>
-  <div class="crm-title">Just a moment...</div>
+  <div class="crm-title">Downloading...</div>
   <div class='crm-support'>
-    <div class="crm-download-info crm-hidden">
-      <div>Thanks for downloading</div>
-      <div class="down-link">If you were not able to download <a
-          href="<?php echo $content['downloadURL']; ?>" id="download-link" target="_blank">click here</a> to start the
-        download.
-      </div>
-    </div>
     <div class="crm-download-content">
       <div class="crm-download-intro">
         CiviCRM is Member-supported Open Source Software. Please consider contributing to support ongoing improvements to the project.
       </div>
+      <div class="down-link">Thanks for downloading. If you were not able to download <a
+          href="<?php echo $content['downloadURL']; ?>" id="download-link" target="_blank">click here</a> to start the
+        download.
+      </div>
       <p>
-        <label for="display_amount">Contribution Amount</label>
-        <input type="text" id="display_amount" class="crm-amount" readonly/>
         <div>(move slider to change amount)</div>
       </p>
-      <div id="slider"></div>
-      <div class="crm-donate-option">
-        <input type="checkbox" class="" id="is_donate" value="1"> No, I don't want to support the project with a contribution at this time.
+      <div class="slider-container">
+        <div id="slider"></div>
       </div>
       <div class="crm-buttons">
-      <span class="donate-download">
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
           <input type="hidden" name="cmd" value="_donations">
           <input type="hidden" name="business" value="dave@civicrm.org">
@@ -46,15 +39,14 @@
           <input type="hidden" name="currency_code" value="USD">
           <input type="hidden" name="no_note" value="0">
           <!--<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">-->
-          <input type="submit" class="crm-input" name="download-donate" value="Download & Contribute">
+          <div>
+            <input type="submit" class="crm-input" name="download-donate" value="Donate">
+            <span class="crm-currency">$</span><input type="text" id="display_amount" class="crm-amount"/>
+          </div>
         </form>
-        <!--<input type="submit" class="crm-input" name="download-donate" value="Download & Donate">-->
-      </span>
-      <span class="download-only crm-hidden">
-        <input type="submit" class="crm-input" name="download-only" value="Download Only">
-      </span>
       </div>
       <br/>
+      <div class="crm-hidden" id="crm-download-link"></div>
     </div>
   </div>
 <?php } ?>
