@@ -70,7 +70,7 @@ function cividownload_download($fileType) {
       break;
   }
 
-  $content['downloadURL'] = "http://download.civicrm.org/{$fileName}";
+  $content['downloadURL'] = "https://download.civicrm.org/{$fileName}";
   $content['fileName'] = $fileName;
 
   return $content;
