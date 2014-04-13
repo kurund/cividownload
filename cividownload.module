@@ -10,7 +10,7 @@ function cividownload_menu() {
     'title' => t('CiviCRM Downloads'),
     'page callback' => 'cividownload_download_page',
     'access arguments' => array('access content'),
-    'type'             => MENU_SUGGESTED_ITEM,
+    'type' => MENU_SUGGESTED_ITEM,
   );
 
   $items['admin/config/content/cividownload'] = array(
@@ -26,55 +26,10 @@ function cividownload_menu() {
 }
 
 function cividownload_download_page() {
-  drupal_add_css(drupal_get_path('module', 'cividownload') .'/cividownload.css', array('weight' => 1000));
+  drupal_add_css(drupal_get_path('module', 'cividownload') . '/cividownload.css', array('weight' => 1000));
 
-  // get the argument for type of download
-  $arg_list = func_get_args();
-  if (!empty($arg_list)) {
-    $fileType = $arg_list[0];
-    $content = cividownload_download($fileType);
-  }
-  else {
-    $content = cividownload_download_list();
-  }
+  $content = cividownload_download_list();
   return theme('cividownload_custompage_template', array('content' => $content));
-}
-
-function cividownload_download($fileType) {
-  drupal_set_title('');
-
-  drupal_add_library('system', 'ui.slider');
-  drupal_add_js(drupal_get_path('module', 'cividownload') .'/cividownload.js', array('weight' => 1000));
-
-  $content['download'] = 1;
-
-  // get the current stable version
-  $current_version = getCurrentVersion();
-
-  $fileName = '';
-  switch($fileType) {
-    case 'drupal':
-      $fileName = "civicrm-{$current_version}-drupal.tar.gz";
-      break;
-    case 'wordpress':
-      $fileName = "civicrm-{$current_version}-wordpress.zip";
-      break;
-    case 'joomla':
-      $fileName = "civicrm-{$current_version}-joomla.zip";
-      break;
-    case 'joomla-alt':
-      $fileName = "civicrm-{$current_version}-joomla-alt.zip";
-      break;
-    case 'drupal6':
-      $fileName = "civicrm-{$current_version}-drupal6.tar.gz";
-      break;
-  }
-
-  $content['downloadURL'] = "https://download.civicrm.org/{$fileName}";
-  $content['fileName'] = $fileName;
-
-  return $content;
-
 }
 
 function cividownload_download_list() {
@@ -83,28 +38,35 @@ function cividownload_download_list() {
   // get the current stable version
   $current_version = getCurrentVersion();
 
-  $content['listing'] = 1;
+  // contribution page
+  $url = 'civicrm/contribute/transact?reset=1&id=63&filename=';
+
   // build urls for the releases
   $content['download_urls'] = array(
     'drupal' => array(
       'title' => t('Drupal'),
-      'version' => $current_version,
+      'filename' => "civicrm-{$current_version}-drupal.tar.gz",
+      'url' => "{$url}civicrm-{$current_version}-drupal.tar.gz",
     ),
     'wordpress' => array(
       'title' => t('WordPress'),
-      'version' => $current_version,
+      'filename' => "civicrm-{$current_version}-wordpress.zip",
+      'url' => "{$url}civicrm-{$current_version}-wordpress.zip",
     ),
     'joomla' => array(
       'title' => t('Joomla'),
-      'version' => $current_version,
+      'filename' => "civicrm-{$current_version}-joomla.zip",
+      'url' => "{$url}civicrm-{$current_version}-joomla.zip",
     ),
     'joomla-alt' => array(
       'title' => t('Joomla alt'),
-      'version' => $current_version,
+      'filename' => "civicrm-{$current_version}-joomla-alt.zip",
+      'url' => "{$url}civicrm-{$current_version}-joomla-alt.zip",
     ),
     'drupal6' => array(
       'title' => t('Drupal 6'),
-      'version' => $current_version,
+      'filename' => "civicrm-{$current_version}-drupal6.tar.gz",
+      'url' => "{$url}civicrm-{$current_version}-drupal6.tar.gz",
     ),
   );
 
@@ -136,4 +98,50 @@ function cividownload_settings() {
     '#required' => TRUE,
   );
   return system_settings_form($form);
+}
+
+/**
+ * Implementation of CiviCRM's config hook
+ * @param null $config
+ */
+function cividownload_civicrm_config(&$config = NULL) {
+  static $configured = FALSE;
+  if ($configured) {
+    return;
+  }
+  $configured = TRUE;
+
+  $template =& CRM_Core_Smarty::singleton();
+
+  $extRoot = dirname(__FILE__) . DIRECTORY_SEPARATOR;
+  $extDir = $extRoot . 'templates';
+
+  if (is_array($template->template_dir)) {
+    array_unshift($template->template_dir, $extDir);
+  }
+  else {
+    $template->template_dir = array($extDir, $template->template_dir);
+  }
+
+  $include_path = $extRoot . PATH_SEPARATOR . get_include_path();
+  set_include_path($include_path);
+}
+
+
+/**
+ * Implementation of CiviCRM's buildForm hook to modify contribution page
+ */
+function cividownload_civicrm_buildForm($formName, &$form) {
+  if ($formName == 'CRM_Contribute_Form_Contribution_Main' && $form->_id = 63) {
+    // add require js and css files
+    drupal_add_library('system', 'ui.slider');
+    drupal_add_css(drupal_get_path('module', 'cividownload') . '/cividownload.css', array('weight' => 1000));
+    drupal_add_js(drupal_get_path('module', 'cividownload') . '/cividownload.js', array('weight' => 1000));
+
+    // get the filename from the url
+    $fileName = CRM_Utils_Request::retrieve('filename', 'String', $form);
+    if ($fileName) {
+      $form->assign('downloadURL', "https://download.civicrm.org/{$fileName}");
+    }
+  }
 }
