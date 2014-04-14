@@ -14,7 +14,7 @@
 
 .crm-other-amount {
   float: right;
-  margin-right: 186px;
+  margin-right: 175px;
 }
 
 .crm-other-amount input {
@@ -54,6 +54,9 @@
   font-size: 30px;
 }
 
+.email-5-section input {
+  width: 415px;
+}
 .crm-hidden {
   display: none;
 }

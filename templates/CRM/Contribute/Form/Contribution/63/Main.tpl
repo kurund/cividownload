@@ -105,7 +105,7 @@
     <div class="crm-download-content">
       <div class="crm-download-text">
         <div class="crm-download-intro">
-          <span>Thanks for downloading CiviCRM.Please consider making a contribution to support the project.</span>
+          <span>Thanks for downloading CiviCRM. Please consider making a contribution to support the project.</span>
           </br></br>
           <span>Together we can make CiviCRM even better!</span></br>
         </div>
