@@ -127,6 +127,7 @@
         <div id="slider"></div>
       </div>
       <br/>
+      <div class="crm-donation-message"></div>
       {if $downloadURL}
       <iframe src="{$downloadURL}" class="crm-hidden"></iframe>
       {/if}

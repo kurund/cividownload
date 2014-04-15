@@ -39,7 +39,7 @@ function cividownload_download_list() {
   $current_version = getCurrentVersion();
 
   // contribution page
-  $url = 'civicrm/contribute/transact?reset=1&id=63&filename=';
+  $url = '/civicrm/contribute/transact?reset=1&id=63&filename=';
 
   // build urls for the releases
   $content['download_urls'] = array(
