@@ -54,12 +54,12 @@ function cividownload_download_list() {
       'url' => "{$url}civicrm-{$current_version}-drupal6.tar.gz",
     ),
     'joomla' => array(
-      'title' => t('Joomla'),
+      'title' => t('Joomla 2.5.x / 3.x'),
       'filename' => "civicrm-{$current_version}-joomla.zip",
       'url' => "{$url}civicrm-{$current_version}-joomla.zip",
     ),
     'wordpress' => array(
-      'title' => t('WordPress'),
+      'title' => t('WordPress 3.4.x'),
       'filename' => "civicrm-{$current_version}-wordpress.zip",
       'url' => "{$url}civicrm-{$current_version}-wordpress.zip",
     ),
@@ -138,6 +138,24 @@ function cividownload_civicrm_buildForm($formName, &$form) {
     $fileName = CRM_Utils_Request::retrieve('filename', 'String', $form);
     if ($fileName) {
       $form->assign('downloadURL', "https://download.civicrm.org/{$fileName}");
+      //get the cms version
+      $file = explode('-', $fileName);
+      $version = $file[1];
+      $cms = explode('.', $file[2]);
+
+      switch ($cms[0]) {
+        case 'drupal': $cmsType = "Drupal 7.x";
+          break;
+        case 'drupal6': $cmsType = "Drupal 6.x";
+          break;
+        case 'joomla': $cmsType = "Joomla 2.5.x / 3.x";
+          break;
+        case 'wordpress': $cmsType = "Wordpress 3.4.x";
+          break;
+      }
+
+      $pageTitle = "Downloading CiviCRM {$version} for {$cmsType} ({$fileName})";
+      $form->assign('pageTitle', $pageTitle);
     }
   }
 }

@@ -66,13 +66,14 @@
   padding-bottom: 5px;
 }
 
-.crm-title {
+.crm-download-title {
   font-size: 18px;
   color: #0B4151;
   background-color: #7EC757;
   font-family: "Lato", "Lato", Cantarell, Helvetica, Arial, sans-serif;
-  padding: 10px;
+  padding: 12px;
   font-weight: 900;
+  margin-top: 19px;
 }
 
 .crm-introduction {

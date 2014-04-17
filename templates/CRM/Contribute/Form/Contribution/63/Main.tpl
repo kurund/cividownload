@@ -100,7 +100,7 @@
 
   {* start of code related to download project *}
 
-  <div class="crm-title">Downloading...</div>
+  <div class="crm-download-title">{$pageTitle}</div>
   <div class='crm-support'>
     <div class="crm-download-content">
       <div class="crm-download-text">
@@ -129,7 +129,7 @@
       <br/>
       <div class="crm-donation-message"></div>
       {if $downloadURL}
-      <iframe src="{$downloadURL}" class="crm-hidden"></iframe>
+        <iframe src="{$downloadURL}" class="crm-hidden"></iframe>
       {/if}
     </div>
   </div>

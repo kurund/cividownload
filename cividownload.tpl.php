@@ -1,4 +1,4 @@
-<div class="crm-title">Download CiviCRM</div>
+<div class="crm-download-title">Download CiviCRM</div>
 <div class='crm-support'>
   <div class='crm-introduction'>
     The current stable version of CiviCRM is <?php echo variable_get('civicrm_stable_version', '4.4.0'); ?>. You will
@@ -23,5 +23,6 @@
     Looking for older or pre-release versions? <a href="http://sourceforge.net/projects/civicrm/files/" target="_blank">click
       here</a>
   </div>
-
+  <div style="background-color: #7EC757; padding: 10px; color: white; font-weight: bold; font-size: 18px; width: 90%'">
+    OR ... <a href="https://civicrm.org/providers/hosting" target="_blank">start using CiviCRM on demand &quot;in the cloud&quot; by signing up with one of our Hosting Providers.</a></div>
 </div>
