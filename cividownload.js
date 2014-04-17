@@ -20,7 +20,7 @@
 
       $('.other_amount-section label').remove();
       $('#priceset-div').addClass('crm-other-amount');
-      $('#_qf_Main_upload-bottom').val('Donate');
+      $('#_qf_Main_upload-bottom').val('Donate Now');
       $('.other_amount-section .label').append('<span class="crm-currency">$</span>');
     }
 

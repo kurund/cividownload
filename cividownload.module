@@ -44,29 +44,24 @@ function cividownload_download_list() {
   // build urls for the releases
   $content['download_urls'] = array(
     'drupal' => array(
-      'title' => t('Drupal'),
+      'title' => t('Drupal 7'),
       'filename' => "civicrm-{$current_version}-drupal.tar.gz",
       'url' => "{$url}civicrm-{$current_version}-drupal.tar.gz",
     ),
-    'wordpress' => array(
-      'title' => t('WordPress'),
-      'filename' => "civicrm-{$current_version}-wordpress.zip",
-      'url' => "{$url}civicrm-{$current_version}-wordpress.zip",
+    'drupal6' => array(
+      'title' => t('Drupal 6'),
+      'filename' => "civicrm-{$current_version}-drupal6.tar.gz",
+      'url' => "{$url}civicrm-{$current_version}-drupal6.tar.gz",
     ),
     'joomla' => array(
       'title' => t('Joomla'),
       'filename' => "civicrm-{$current_version}-joomla.zip",
       'url' => "{$url}civicrm-{$current_version}-joomla.zip",
     ),
-    'joomla-alt' => array(
-      'title' => t('Joomla alt'),
-      'filename' => "civicrm-{$current_version}-joomla-alt.zip",
-      'url' => "{$url}civicrm-{$current_version}-joomla-alt.zip",
-    ),
-    'drupal6' => array(
-      'title' => t('Drupal 6'),
-      'filename' => "civicrm-{$current_version}-drupal6.tar.gz",
-      'url' => "{$url}civicrm-{$current_version}-drupal6.tar.gz",
+    'wordpress' => array(
+      'title' => t('WordPress'),
+      'filename' => "civicrm-{$current_version}-wordpress.zip",
+      'url' => "{$url}civicrm-{$current_version}-wordpress.zip",
     ),
   );
 
@@ -133,6 +128,7 @@ function cividownload_civicrm_config(&$config = NULL) {
  */
 function cividownload_civicrm_buildForm($formName, &$form) {
   if ($formName == 'CRM_Contribute_Form_Contribution_Main' && $form->_id = 63) {
+    drupal_set_title('');
     // add require js and css files
     drupal_add_library('system', 'ui.slider');
     drupal_add_css(drupal_get_path('module', 'cividownload') . '/cividownload.css', array('weight' => 1000));
