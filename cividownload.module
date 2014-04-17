@@ -44,12 +44,12 @@ function cividownload_download_list() {
   // build urls for the releases
   $content['download_urls'] = array(
     'drupal' => array(
-      'title' => t('Drupal 7'),
+      'title' => t('Drupal 7.x'),
       'filename' => "civicrm-{$current_version}-drupal.tar.gz",
       'url' => "{$url}civicrm-{$current_version}-drupal.tar.gz",
     ),
     'drupal6' => array(
-      'title' => t('Drupal 6'),
+      'title' => t('Drupal 6.x'),
       'filename' => "civicrm-{$current_version}-drupal6.tar.gz",
       'url' => "{$url}civicrm-{$current_version}-drupal6.tar.gz",
     ),
@@ -59,7 +59,7 @@ function cividownload_download_list() {
       'url' => "{$url}civicrm-{$current_version}-joomla.zip",
     ),
     'wordpress' => array(
-      'title' => t('WordPress 3.4.x'),
+      'title' => t('WordPress 3.x'),
       'filename' => "civicrm-{$current_version}-wordpress.zip",
       'url' => "{$url}civicrm-{$current_version}-wordpress.zip",
     ),
@@ -150,7 +150,7 @@ function cividownload_civicrm_buildForm($formName, &$form) {
           break;
         case 'joomla': $cmsType = "Joomla 2.5.x / 3.x";
           break;
-        case 'wordpress': $cmsType = "Wordpress 3.4.x";
+        case 'wordpress': $cmsType = "Wordpress 3.x";
           break;
       }
 
