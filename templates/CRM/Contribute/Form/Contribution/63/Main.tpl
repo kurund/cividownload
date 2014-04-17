@@ -104,16 +104,18 @@
   <div class='crm-support'>
     <div class="crm-download-content">
       <div class="crm-download-text">
-        <div class="crm-download-intro">
-          <span>Thanks for downloading CiviCRM. Please consider making a contribution to support the project.</span>
-          </br></br>
-          <span>Together we can make CiviCRM even better!</span></br>
-        </div>
-        <div class="down-link">
-          If the download doesn't start in a few seconds, please
-          <a href="{$downloadURL}" id="download-link" target="_blank">click here</a>
-          to start the download.
-        </div>
+        {if $downloadURL}
+          <div class="crm-download-intro">
+            <span>Thanks for downloading CiviCRM. Please consider making a contribution to support the project.</span>
+            </br></br>
+            <span>Together we can make CiviCRM even better!</span></br>
+          </div>
+          <div class="down-link">
+            If the download doesn't start in a few seconds, please
+            <a href="{$downloadURL}" id="download-link" target="_blank">click here</a>
+            to start the download.
+          </div>
+        {/if}
       </div>
       <br/>
       <div class="crm-levels">

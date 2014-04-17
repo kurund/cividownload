@@ -12,9 +12,8 @@
   <div class="crm-download-listing">
     <?php foreach ($content['download_urls'] as $key => $values) { ?>
       <div class="crm-download-buttons">
-        <a class="download-link"
-           href="<?php echo $values['url']; ?>"
-           filename="<?php echo $values['filename']; ?>">Download CiviCRM <?php echo $civicrm_version; ?></a>
+        <a class="download-link" href="<?php echo $values['url'];?>">
+          Download CiviCRM <?php echo $civicrm_version; ?></a>
         &nbsp;<strong><?php echo 'for ' . $values['title']; ?></strong>
       </div>
       <br/>
