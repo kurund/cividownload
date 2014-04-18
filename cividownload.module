@@ -6,7 +6,7 @@
  */
 function cividownload_menu() {
   $items = array();
-  $items['cividownload'] = array(
+  $items['download'] = array(
     'title' => t('CiviCRM Downloads'),
     'page callback' => 'cividownload_download_page',
     'access arguments' => array('access content'),
