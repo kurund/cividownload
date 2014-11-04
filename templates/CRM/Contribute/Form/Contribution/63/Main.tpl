@@ -1,8 +1,8 @@
 {*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.5                                                |
+ | CiviCRM version 4.4                                                |
  +--------------------------------------------------------------------+
- | Copyright CiviCRM LLC (c) 2004-2014                                |
+ | Copyright CiviCRM LLC (c) 2004-2013                                |
  +--------------------------------------------------------------------+
  | This file is a part of CiviCRM.                                    |
  |                                                                    |
@@ -23,6 +23,7 @@
  | see the CiviCRM license FAQ at http://civicrm.org/licensing        |
  +--------------------------------------------------------------------+
 *}
+
 {* Callback snippet: On-behalf profile *}
 {if $snippet and !empty($isOnBehalfCallback)}
   {include file="CRM/Contribute/Form/Contribution/OnBehalfOf.tpl" context="front-end"}
@@ -97,93 +98,47 @@
 
   {include file="CRM/common/TrackingFields.tpl"}
 
+  {* start of code related to download project *}
+
+  <div class="crm-download-title">{$pageTitle}</div>
+  <div class='crm-support'>
+    <div class="crm-download-content">
+      <div class="crm-download-text">
+        {if $downloadURL}
+          <div class="crm-download-intro">
+            <span>Thanks for downloading CiviCRM. Please consider making a contribution to support the project.</span>
+            </br></br>
+            <span>Together we can make CiviCRM even better!</span></br>
+          </div>
+          <div class="down-link">
+            If the download doesn't start in a few seconds, please
+            <a href="{$downloadURL}" id="download-link" target="_blank">click here</a>
+            to start the download.
+          </div>
+        {/if}
+      </div>
+      <br/>
+      <div class="crm-levels">
+        <span class="crm-level-1">$10</span>
+        <span class="crm-level-2">$250</span>
+        <span class="crm-level-3">$500</span>
+        <span class="crm-level-4">$750</span>
+        <span class="crm-level-5">$1000</span>
+      </div>
+      <div class="slider-container">
+        <div id="slider"></div>
+      </div>
+      <br/>
+      <div class="crm-donation-message"></div>
+      {if $downloadURL}
+        <iframe src="{$downloadURL}" class="crm-hidden"></iframe>
+      {/if}
+    </div>
+  </div>
+  {* end of code related to download project *}
+
   {capture assign='reqMark'}<span class="marker" title="{ts}This field is required.{/ts}">*</span>{/capture}
   <div class="crm-contribution-page-id-{$contributionPageID} crm-block crm-contribution-main-form-block">
-
-  {* start of customization of membership signup page*}
-  <div class="crm-main-container">
-    <div class="crm-body">
-      <div class="crm-left-side">
-        <div class="crm-intro-text"></div>
-        <div class="crm-fees"></div>
-        <div class="crm-email"></div>
-        <div class="crm-organization-details"></div>
-        <div class="crm-your-details"></div>
-        <div><fieldset class="crm-payment-options"></fieldset></div>
-        <div class="crm-contribute-button"></div>
-      </div>
-      <div class="crm-right-side">
-        <div class="crm-member-benefits"></div>
-      </div>
-    </div>
-    <div class="clear"></div>
-  </div>
-  {literal}
-    <script type="text/javascript">
-      CRM.$(function($) {
-        $('.crm-intro-text').html($('#intro_text').html());
-        $('#intro_text').remove();
-        $('.crm-member-benefits').html($('#membership-intro').html());
-        $('#membership-intro').remove();
-        $('.crm-fees').html($('.crm-section').html());
-        $('#membership').remove();
-        $('.crm-email').html($('.email-5-section').html());
-        $('.email-5-section').remove();
-        $('input[name="email-5"]').attr('placeholder', 'Email Address');
-        $('.crm-organization-details').html($('#onBehalfOfOrg').html());
-        $('#onBehalfOfOrg').remove();
-        $('.custom_pre_profile-group').appendTo('.crm-your-details');
-        $('.crm-payment-options').html($('.payment_options-group').html());
-        $('.payment_options-group').remove();
-        $('.crm-contribute-button').html($('.crm-submit-buttons').html());
-        $('.crm-submit-buttons').remove();
-        $('#_qf_Main_upload-bottom').val('Join Now');
-      });
-    </script>
-    <style>
-      .crm-email {
-        padding: 10px;
-      }
-      .crm-email .label {
-        display: none;
-      }
-      #crm-container .crm-email input[type="text"] {
-        font-size: 20px;
-      }
-      #crm-container .crm-contribute-button span.crm-button {
-        padding: 4px;
-        font-size: 18px;
-      }
-      .payment_processor-section .label {
-        display: none;
-      }
-      .crm-member-benefits {
-        border: 2px dotted;
-        margin-left: 676px;
-      }
-      .crm-fees {
-        padding-top: 24px;
-      }
-      .crm-intro-text {
-        border: 2px solid;
-        padding-left: 8px;
-      }
-      .crm-left-side {
-        width: 70%;
-        float: left;
-        padding-right: 12px;
-      }
-      .crm-right-side {
-        padding-top: 1px;
-      }
-      .crm-container fieldset {
-        border: 1px solid;
-        padding-left: 10px;
-      }
-    </style>
-  {/literal}
-  {* end of customization of membership signup page*}
-
   <div id="intro_text" class="crm-section intro_text-section">
     {$intro_text}
   </div>
@@ -236,19 +191,8 @@
         {$form.frequency_unit.html}
       {/if}
       {if $is_recur_installments}
-        <span id="recur_installments_num">
         {ts}for{/ts} {$form.installments.html} {$form.installments.label}
-        </span>
       {/if}
-      <div id="recurHelp" class="description">
-				{ts}Your recurring contribution will be processed automatically.{/ts}
-				{if $is_recur_installments}
-					{ts}You can specify the number of installments, or you can leave the number of installments blank if you want to make an open-ended commitment. In either case, you can choose to cancel at any time.{/ts}
-				{/if}
-        {if $is_email_receipt}
-          {ts}You will receive an email receipt for each recurring contribution.{/ts}
-        {/if}
-      </div>
     </div>
     <div class="clear"></div>
   </div>
@@ -291,9 +235,44 @@
 
   {if $honor_block_is_active}
   <fieldset class="crm-group honor_block-group">
-    {include file="CRM/Contribute/Form/SoftCredit.tpl"}
+    <legend>{$honor_block_title}</legend>
+    <div class="crm-section honor_block_text-section">
+      {$honor_block_text}
+    </div>
+    {if $form.honor_type_id.html}
+      <div class="crm-section {$form.honor_type_id.name}-section">
+        <div class="content" >
+          {$form.honor_type_id.html}
+          <span class="crm-clear-link">(<a href="#" title="unselect" onclick="unselectRadio('honor_type_id', '{$form.formName}');enableHonorType(); return false;">{ts}clear{/ts}</a>)</span>
+          <div class="description">{ts}Select an option to reveal honoree information fields.{/ts}</div>
+        </div>
+      </div>
+    {/if}
     <div id="honorType" class="honoree-name-email-section">
-      {include file="CRM/UF/Form/Block.tpl" fields=$honoreeProfileFields mode=8 prefix='honor'}
+      <div class="crm-section {$form.honor_prefix_id.name}-section">
+        <div class="content">{$form.honor_prefix_id.html}</div>
+      </div>
+      <div class="crm-section {$form.honor_first_name.name}-section">
+        <div class="label">{$form.honor_first_name.label}</div>
+        <div class="content">
+          {$form.honor_first_name.html}
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="crm-section {$form.honor_last_name.name}-section">
+        <div class="label">{$form.honor_last_name.label}</div>
+        <div class="content">
+          {$form.honor_last_name.html}
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div id="honorTypeEmail" class="crm-section {$form.honor_email.name}-section">
+        <div class="label">{$form.honor_email.label}</div>
+        <div class="content">
+          {$form.honor_email.html}
+        </div>
+        <div class="clear"></div>
+      </div>
     </div>
   </fieldset>
   {/if}
@@ -423,7 +402,7 @@
       //disabled auto renew settings.
     var allowAutoRenew = {/literal}'{$allowAutoRenewMembership}'{literal};
       if ( allowAutoRenew && cj("#auto_renew") ) {
-        cj("#auto_renew").prop('checked', false );
+        cj("#auto_renew").attr( 'checked', false );
         cj('#allow_auto_renew').hide( );
       }
     }
@@ -431,41 +410,40 @@
 
   {/literal}
   {if $relatedOrganizationFound and $reset}
-    cj( "#is_for_organization" ).prop('checked', true );
+    cj( "#is_for_organization" ).attr( 'checked', true );
     showOnBehalf(false);
   {elseif $onBehalfRequired}
     showOnBehalf(true);
   {/if}
+
+  {if $honor_block_is_active AND $form.honor_type_id.html}
+    enableHonorType();
+  {/if}
   {literal}
 
-	cj('input[name="soft_credit_type_id"]').on('change', function() {
-		enableHonorType();
-	});
-	
   function enableHonorType( ) {
-    var selectedValue = cj('input[name="soft_credit_type_id"]:checked'); 
-    if ( selectedValue.val() > 0) {
+    var element = document.getElementsByName("honor_type_id");
+    for (var i = 0; i < element.length; i++ ) {
+      var isHonor = false;
+      if ( element[i].checked == true ) {
+        var isHonor = true;
+        break;
+      }
+    }
+    if ( isHonor ) {
       cj('#honorType').show();
+      cj('#honorTypeEmail').show();
     }
     else {
+      document.getElementById('honor_first_name').value = '';
+      document.getElementById('honor_last_name').value  = '';
+      document.getElementById('honor_email').value      = '';
+      document.getElementById('honor_prefix_id').value  = '';
       cj('#honorType').hide();
+      cj('#honorTypeEmail').hide();
     }
   }
 
-	cj('input[id="is_recur"]').on('change', function() {
-		showRecurHelp();
-	});
-
-  function showRecurHelp( ) {
-    var showHelp = cj('input[id="is_recur"]:checked'); 
-    if ( showHelp.val() > 0) {
-      cj('#recurHelp').show();
-    }
-    else {
-      cj('#recurHelp').hide();
-    }
-  }
-	
   function pcpAnonymous( ) {
     // clear nickname field if anonymous is true
     if (document.getElementsByName("pcp_is_anonymous")[1].checked) {
@@ -518,10 +496,8 @@
     toggleConfirmButton();
   });
 
-  CRM.$(function($) {
+  cj(function() {
     toggleConfirmButton();
-		enableHonorType();
-		showRecurHelp();
   });
 
   function showHidePayPalExpressOption() {
@@ -535,29 +511,14 @@
     }
   }
 
-  CRM.$(function($) {
+  cj(function(){
     // highlight price sets
     function updatePriceSetHighlight() {
-      cj('#priceset .price-set-row span').removeClass('highlight');
-      cj('#priceset .price-set-row input:checked').parent().addClass('highlight');
+      cj('#priceset .price-set-row').removeClass('highlight');
+      cj('#priceset .price-set-row input:checked').parent().parent().addClass('highlight');
     }
     cj('#priceset input[type="radio"]').change(updatePriceSetHighlight);
     updatePriceSetHighlight();
-
-    function toggleBillingBlockIfFree(){
-      var total_amount_tmp =  $(this).data('raw-total'); 
-      // Hide billing questions if this is free
-      if (total_amount_tmp == 0){
-        cj("#billing-payment-block").hide();
-        cj(".payment_options-group").hide();
-      } 
-      else {
-        cj("#billing-payment-block").show();
-        cj(".payment_options-group").show();
-      }
-    }
-
-    $('#pricevalue').each(toggleBillingBlockIfFree).on('change', toggleBillingBlockIfFree);
   });
   {/literal}
 </script>
